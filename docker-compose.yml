@@ -1,0 +1,39 @@
+services:
+  order-book-api:
+    build:
+      context: .
+      target: development
+    command: >
+      sh -c "pnpm dev"
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    depends_on:
+      - order-book-redis
+    networks:
+      - order-book-network
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - ./src:/app/src
+      - ./test:/app/test
+
+  order-book-redis:
+    image: redis:6
+    container_name: order-book-redis
+    restart: always
+    ports:
+      - 6379:6379
+    env_file:
+      - .env
+    networks:
+      - order-book-network
+    volumes:
+      - order-book-redis-vol:/data
+    command: ['redis-server', '--appendonly', 'yes']
+
+volumes:
+  order-book-redis-vol:
+
+networks:
+  order-book-network:

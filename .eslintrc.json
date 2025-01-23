@@ -1,0 +1,25 @@
+{
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["prettier", "import"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "no-console": "warn",
+    "import/no-unresolved": "error", // Report unresolved imports
+    "import/named": "error", // Ensure named imports correspond to a named export
+    "import/default": "error", // Ensure a default export is present when imported as default
+    "import/namespace": "error", // Ensure imported namespaces contain dereferenced properties
+    "import/no-duplicates": "error" // Prevent duplicate imports
+  }
+}

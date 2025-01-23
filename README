@@ -1,0 +1,47 @@
+1.Technology Stack:
+•Node.js (No TypeScript).
+•Redis for caching & persistence (mandatory).
+•Use necessary npm packages but avoid overuse of external libraries.
+
+2.Coding Practices:
+•Follow strict Object-Oriented Programming (OOP) principles.
+•Ensure modular design for scalability & maintainability.
+•Logging & error handling must be implemented thoroughly.
+•Include comprehensive test cases using Jest.
+
+3.Submission:
+•Functional & well-documented code with a clear structure.
+•All submission files should have a detailed README.md with setup & usage instructions.
+
+4.Plagiarism: Submissions will be checked for originality. Plagiarism or code copying will result in disqualification.
+5.Interview: The final interview includes a discussion on case study & a small live coding challenge focused on Data Structures & Algorithms, duration 90 mins
+
+                                                                         Real-Time Order Book & Trade Updates 
+
+Scenario: Build a system to maintain & update real-time order books for a cryptocurrency exchange. Users should be able to subscribe to updates for specific cryptocurrency pairs via WebSocket.
+
+Requirements:
+
+1.Order Books:
+•Maintain separate order books for at least 5 crypto pairs.
+•Sort bids in descending order & asks in ascending order.
+
+2.WebSocket Communication:
+•Users can connect & subscribe to specific crypto pairs.
+•Broadcast updates (new orders, cancellations, trades) to subscribed users.
+
+3.Order Actions:
+•Support the following actions:
+•Add a buy/sell order.
+•Cancel an order.
+•Execute a trade between matching orders.
+
+4.Mock Data: Use a static dataset with at least 5 crypto pairs for testing purposes.
+
+Tech Requirements:
+•Redis for caching the order book.
+•WebSocket for communication.
+•Logging & error handling.
+
+Testing:
+•Write unit tests for WebSocket communication & order book operations.
