@@ -16,6 +16,7 @@ describe('UserService', () => {
     info: jest.fn(),
   };
 
+  /** @type {UserService} */
   let userService;
 
   beforeAll(() => {

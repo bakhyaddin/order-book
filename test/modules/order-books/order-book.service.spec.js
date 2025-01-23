@@ -18,6 +18,7 @@ describe('OrderBookService', () => {
     },
   };
 
+  /** @type {OrderBookService} */
   let orderBookService;
 
   const pair = 'BTC-USD';

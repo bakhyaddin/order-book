@@ -15,7 +15,9 @@ describe('UserController', () => {
     delete: jest.fn(),
   };
 
+  /** @type {UserController} */
   let userController;
+
   let req;
   let res;
 

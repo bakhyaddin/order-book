@@ -17,6 +17,7 @@ describe('OrderController', () => {
     executeTrade: jest.fn(),
   };
 
+  /** @type {OrderController} */
   let orderController;
   let req;
   let res;

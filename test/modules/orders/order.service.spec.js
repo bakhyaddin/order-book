@@ -28,10 +28,13 @@ describe('OrderService', () => {
     getBestAsk: jest.fn(),
   };
   const userService = {
+    getById: jest.fn(),
     updateUserBalances: jest.fn(),
   };
 
+  /** @type OrderService */
   let orderService;
+
   const pair = 'BTC-USD';
 
   beforeAll(() => {
@@ -66,6 +69,7 @@ describe('OrderService', () => {
         status: OrderStatus.OPEN,
       };
 
+      jest.spyOn(userService, 'getById').mockResolvedValue({});
       jest.spyOn(orderBookService, 'addBid').mockResolvedValue();
       jest.spyOn(eventBus, 'emit');
 
@@ -106,6 +110,7 @@ describe('OrderService', () => {
         status: OrderStatus.OPEN,
       };
 
+      jest.spyOn(userService, 'getById').mockResolvedValue({});
       jest.spyOn(orderBookService, 'addAsk').mockResolvedValue();
       jest.spyOn(eventBus, 'emit');
 
@@ -129,6 +134,22 @@ describe('OrderService', () => {
         data: createdOrder,
       });
       expect(result).toEqual(expect.any(OrderEntity));
+    });
+
+    it('should throw NotFoundError if user is not found', async () => {
+      const orderToCreate = {
+        userId: 'user123',
+        pair,
+        type: OrderType.SELL,
+        price: 50000,
+        quantity: 1,
+      };
+
+      jest.spyOn(userService, 'getById').mockResolvedValue(null);
+
+      expect(orderService.createOrder(orderToCreate)).rejects.toThrow(
+        NotFoundError
+      );
     });
   });
 
@@ -231,7 +252,7 @@ describe('OrderService', () => {
       jest.spyOn(userService, 'updateUserBalances').mockResolvedValue();
       jest.spyOn(eventBus, 'emit');
 
-      await orderService.executeTrade(pair);
+      await orderService._executeTrade(pair);
 
       expect(orderBookService.getBestBid).toHaveBeenCalledWith(pair);
       expect(orderBookService.getBestAsk).toHaveBeenCalledWith(pair);
@@ -254,7 +275,7 @@ describe('OrderService', () => {
       jest.spyOn(orderBookService, 'getBestBid').mockResolvedValue(null);
       jest.spyOn(orderBookService, 'getBestAsk').mockResolvedValue(null);
 
-      await orderService.executeTrade(pair);
+      await orderService._executeTrade(pair);
 
       expect(Logger.info).toHaveBeenCalledWith(
         expect.stringContaining(`No best bid or ask for pair ${pair}`)

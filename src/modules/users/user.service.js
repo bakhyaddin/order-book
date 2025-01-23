@@ -46,7 +46,7 @@ export class UserService extends CrudService {
     await this.repository.save(buyerId, buyer);
     await this.repository.save(sellerId, seller);
     Logger.info(
-      `Both user's balance updated: \n -buyer: ${buyer} \n -seller: ${seller}`
+      `Both user's balance updated: \n -buyer: ${JSON.stringify(buyer)} \n -seller: ${JSON.stringify(seller)}`
     );
   }
 }

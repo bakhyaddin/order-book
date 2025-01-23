@@ -55,6 +55,9 @@ export class OrderService extends CrudService {
    * @returns {Promise<OrderEntity>}
    */
   async createOrder({ userId, pair, type, price, quantity }) {
+    const existingUser = await this.userService.getById(userId);
+    if (!existingUser) throw new NotFoundError('User not found');
+
     const newOrder = new OrderEntity({
       userId,
       pair,
@@ -74,7 +77,7 @@ export class OrderService extends CrudService {
       `New order is created with the type of ${type} for the pair of ${pair}`
     );
 
-    this.executeTrade(pair);
+    this._executeTrade(pair);
 
     eventBus.emit('order.created', {
       pair,
@@ -128,7 +131,7 @@ export class OrderService extends CrudService {
    * Handles everything if purchase happens
    * @param {string} pair
    */
-  async executeTrade(pair) {
+  async _executeTrade(pair) {
     const bestBid = await this.orderBookService.getBestBid(pair);
     const bestAsk = await this.orderBookService.getBestAsk(pair);
 
