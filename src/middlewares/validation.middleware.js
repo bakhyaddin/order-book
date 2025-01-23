@@ -1,13 +1,11 @@
 import { validationResult } from 'express-validator';
 
-const e = require('node_modules/express-validator/lib/chain');
-
 import { BadRequestError } from '../common/api-error';
 
 export class ValidationMiddleware {
   /**
    * Request validator
-   * @param {import('express-validator').ValidationChain[]} validations
+   * @param {any} validations
    */
   static handle(validations) {
     return async (req, res, next) => {

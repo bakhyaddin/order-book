@@ -6,7 +6,7 @@ import orderBookRepository from './order-book.repository';
 // enums
 import { OrderBookingType } from '../../common/enums/order.enum';
 
-class OrderBookService {
+export class OrderBookService {
   /**
    * Order Book repository instance
    * @type {orderBookRepository}

@@ -25,7 +25,7 @@ import {
 // errors
 import { BadRequestError, NotFoundError } from '../../common/api-error';
 
-class OrderService extends CrudService {
+export class OrderService extends CrudService {
   /**
    * Order repository instance
    * @type {orderBookService}
@@ -62,12 +62,12 @@ class OrderService extends CrudService {
       price,
       quantity,
     });
-    const createdOrder = await this.repository.save(newOrder.id, newOrder);
+    await this.repository.save(newOrder.id, newOrder);
 
     if (type === OrderType.BUY) {
-      await this.orderBookService.addBid(createdOrder.id, price, pair);
+      await this.orderBookService.addBid(newOrder.id, price, pair);
     } else {
-      await this.orderBookService.addAsk(createdOrder.id, price, pair);
+      await this.orderBookService.addAsk(newOrder.id, price, pair);
     }
 
     Logger.info(
@@ -113,7 +113,7 @@ class OrderService extends CrudService {
       ]
     );
 
-    Logger.info(`Order with id -> ${id} is cancelled`);
+    Logger.info(`Order is cancelled \n -id: ${id}`);
 
     eventBus.emit('order.cancelled', {
       pair: existingOrder.pair,
@@ -137,8 +137,8 @@ class OrderService extends CrudService {
       return;
     }
 
-    Logger.info(`Best Bid: ${bestBid}`);
-    Logger.info(`Best Ask: ${bestAsk}`);
+    Logger.info(`Best Bid: ${JSON.stringify(bestBid)}`);
+    Logger.info(`Best Ask: ${JSON.stringify(bestAsk)}`);
 
     if (
       bestBid.price >= bestAsk.price &&

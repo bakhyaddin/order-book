@@ -1,7 +1,6 @@
 import { Server as SocketIOServer } from 'socket.io';
 
 import { Logger } from '../common/logger';
-import eventBus from './event-bus.provider';
 
 export class WebSocketProvider {
   /**
@@ -12,8 +11,9 @@ export class WebSocketProvider {
   /**
    * Creates a new WebSocketProvider
    * @param {import('http').Server} server
+   * @param {import('./event-bus.provider')} eventBus
    */
-  constructor(server) {
+  constructor(server, eventBus) {
     this.io = new SocketIOServer(server, {
       cors: {
         origin: '*',

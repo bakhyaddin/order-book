@@ -4,7 +4,7 @@ import { CrudService } from '../../common/services/crud.service';
 import { UserEntity } from './user.entity';
 import userRepository from './user.repository';
 
-class UserService extends CrudService {
+export class UserService extends CrudService {
   /**
    * @param {userRepository} userRepository
    */

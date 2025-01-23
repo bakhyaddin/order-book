@@ -2,7 +2,7 @@ import redisClient from '../../providers/redis-client.provider.js';
 
 import { AbstractRepository } from '../../common/database/repository.abstract.js';
 
-class OrderRepository extends AbstractRepository {
+export class OrderRepository extends AbstractRepository {
   constructor() {
     super(redisClient, 'orders');
   }

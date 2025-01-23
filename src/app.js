@@ -2,6 +2,7 @@ import express from 'express';
 import { createServer } from 'http';
 
 // providers
+import eventBus from './providers/event-bus.provider';
 import { WebSocketProvider } from './providers/web-socket.provider';
 
 // middlewares
@@ -44,7 +45,7 @@ export class App {
 
   start(port) {
     const server = createServer(this.app);
-    new WebSocketProvider(server);
+    new WebSocketProvider(server, eventBus);
 
     server.listen(port, () => {
       console.log(`Server is running on port ${port}`);

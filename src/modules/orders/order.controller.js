@@ -7,7 +7,7 @@ import { SuccessResponse } from '../../common/api-response';
 // errors
 import { NotFoundError } from '../../common/api-error';
 
-class OrderController {
+export class OrderController {
   /**
    * Order service instance
    * @type {orderService}
